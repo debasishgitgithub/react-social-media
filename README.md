@@ -26,3 +26,11 @@ npm run dev
 # to import anything autometically
 
 use ctrl + space
+
+# understand useState and useReducer
+
+<https://chatgpt.com/c/69e86700-b87c-83e8-b746-e6175534edc0>
+
+# understand createContext
+
+<https://chatgpt.com/c/69e8f0a7-bce0-83e8-b4f4-5712bacea036>
