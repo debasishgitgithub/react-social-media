@@ -1,43 +1,73 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 export const PostList = createContext({});
 
 const reducer = (state, action) => {
-  return state;
+  let newPostData = state;
+  switch (action.type) {
+    case "DELETE_POST":
+      newPostData = state.filter((post) => post.id !== action.payload.postId);
+      break;
+    case "ADD_INITIAL_POST":
+      newPostData = action.payload;
+      break;
+    case "ADD_POST":
+      newPostData = [action.payload, ...state];
+      break;
+  }
+
+  return newPostData;
 };
 
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(reducer, DEFAULT_POST_LIST);
+  const [postList, dispatchPostList] = useReducer(reducer, []);
+  // const [fetching, setFetching] = useState(false);
 
-  const addPost = () => {};
-  const deletePost = () => {};
+  const addPost = (postData) => {
+    const data = postData;
+
+    dispatchPostList({
+      type: "ADD_POST",
+      payload: data,
+    });
+  };
+
+  // const addInitialPosts = (posts) => {
+  //   dispatchPostList({
+  //     type: "ADD_INITIAL_POST",
+  //     payload: posts,
+  //   });
+  // };
+
+  const deletePost = (postId) => {
+    dispatchPostList({
+      type: "DELETE_POST",
+      payload: { postId },
+    });
+  };
+
+  // useEffect(() => {
+  //   const controller = new AbortController();
+
+  //   // setFetching(true);
+  //   fetch("https://dummyjson.com/posts", { signal: controller.signal })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // addInitialPosts(data.posts);
+  //       // setFetching(false);
+  //     });
+
+  //   return () => controller.abort(); // Cleanup: cancels call on unmount/re-run
+  // }, []);
 
   const value = {
     postList,
     addPost,
     deletePost,
+    // fetching,
   };
 
   return <PostList.Provider value={value}>{children}</PostList.Provider>;
 };
-
-const DEFAULT_POST_LIST = [
-  {
-    id: "1",
-    title: "Going to Mumbai",
-    body: "Hi Friends, I am going to Mumbai for my vacations. Hope to enjoy a lot. Peace out.",
-    reactions: 2,
-    userId: "user-9",
-    tags: ["vacation", "Mumbai", "Enjoying"],
-  },
-  {
-    id: "2",
-    title: "Paas ho bhai",
-    body: "4 saal ki masti k baad bhi ho gaye hain paas. Hard to believe.",
-    reactions: 15,
-    userId: "user-12",
-    tags: ["Graduating", "Unbelievable"],
-  },
-];
 
 export default PostListProvider;

@@ -34,3 +34,7 @@ use ctrl + space
 # understand createContext
 
 <https://chatgpt.com/c/69e8f0a7-bce0-83e8-b4f4-5712bacea036>
+
+# React Developer Roadmap
+
+<https://chatgpt.com/c/69ea0bbe-ed88-83e8-a0c6-d26ff23c169a>

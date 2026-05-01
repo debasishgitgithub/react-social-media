@@ -10,3 +10,15 @@
 .sidebar {
     min-height: 600px;
 }
+
+.post-card{
+    margin: 20px 50px;
+}
+
+.hashtag{
+    margin: 0 3px
+}
+
+.create-post{
+    margin: 20px 50px;
+}
